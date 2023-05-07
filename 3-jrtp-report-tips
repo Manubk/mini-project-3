@@ -1,0 +1,95 @@
+3 rd Project Documentaions and Tips
+------------------------------------
+
+-> Requirment
+	-> Registration Page
+		user need to enter below fields 
+		-> Full Name
+		-> email
+		-> Phone
+		-> Gender
+		-> DOb
+		-> SSN
+		
+	-> Activation Page
+		-> Email
+		-> old Password
+		-> New Password
+		-> conform Password
+	
+	-> Login Page
+		-> Email
+		-> password (forgot password)
+		
+	-> view All Details
+		-> Full Name
+		-> email
+		-> Phone
+		-> Gender
+		-> DOb
+		-> SSN
+		-> delete
+		-> edit
+		-> softdelete
+	
+	-> Forgot Password
+		-> password should send to user Email
+
+- step - 1
+----------
+	-> Here We neeed one table of USER_MASTER
+		-> USER_ID
+		-> USER_NAME
+		-> USER_EMAIL
+		-> USER_PASS
+		-> USER_PHONE
+		-> USER_DOB
+		-> USER_GENDER
+		-> USER_SSN
+		-> ACC_STATUS
+		-> DELETED
+		-> CREATED_AT
+		-> UPDATED_AT
+		-> CREATED_BY
+		-> UPDATED_BY
+		
+- step - 2
+----------
+	-> create Spring Boot stater Poject with following dependiendy
+		-> spring-web
+		-> spring-data-jpa
+		-> mysqlDriver
+		-> java-mail-sender
+		-> lombok
+		-> spring-dev-Tools
+	
+	-> Create a userMaster Entity Class with above mentioned properties
+	
+	-> create seperate Binding Classes for every request and response objects (like entity)
+		-> User 
+			-> String fullName
+			-> String email
+			-> LocalDate dob
+			-> String phone
+			-> String gender
+			-> String ssn
+		-> ActiveAcc
+			-> String email
+			-> oldPass
+			-> newPass
+			-> conformPass
+		-> LogIn
+			-> String email
+			-> String pass
+	
+	-> create Service Interface 
+		-> Public boolean Save(User user)
+		-> Public List<User> getAllUsers();
+		-> public User findUserById(Integer id)
+		-> public boolean deleteUserById(integer id)
+		-> public String activateUser(Integer id , String status)
+		-> public User findUserByEmail(String email)
+		-> public String login(Login login)
+		-> public boolean forgotPassword(String email);
+	
+		
