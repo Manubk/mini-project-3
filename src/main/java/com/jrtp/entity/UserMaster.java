@@ -22,7 +22,7 @@ public class UserMaster {
 	private Integer userId;
 	
 	@Column(name = "NAME")
-	private String name ;
+	private String userName ;
 	
 	@Column(name = "GENDER")
 	private String gender;

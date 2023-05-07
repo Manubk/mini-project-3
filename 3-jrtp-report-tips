@@ -10,6 +10,7 @@
 		-> Gender
 		-> DOb
 		-> SSN
+		-> email to be send with default pass
 		
 	-> Activation Page
 		-> Email
@@ -59,9 +60,13 @@
 		-> spring-web
 		-> spring-data-jpa
 		-> mysqlDriver
-		-> java-mail-sender
+		-> spring-boot-starter-mail
 		-> lombok
 		-> spring-dev-Tools
+		-> swagger
+		
+		
+		
 	
 	-> Create a userMaster Entity Class with above mentioned properties
 	
@@ -91,5 +96,39 @@
 		-> public User findUserByEmail(String email)
 		-> public String login(Login login)
 		-> public boolean forgotPassword(String email);
+		-> public String generatePass(int size);
+	
+	-> implement all the above methods in service implementation class
+	
+	
+-> Extra feture used
+--------------------
+	-> email sending
+		-> import spring stater mail sender
+		-> configure SMTP properties in application file
+			-> spring.mail.host
+			-> port
+			-> name
+			-> pass
+		-> create a class JavaMailSender
+			-> simpleMessage 
+			-> MimeMessage
+	    -> @Component
+			EmailUtils{
+
+			@autowired
+			private JavaMailSender mailSender;
+
+			public boolean sendMail(to , subject ,body){
+				MimeMessage mimeMessage = mailSender.createMime();
+				MimeMessegeHelper helper = new MimeMessageHelper(mimeMessage);
+
+				helper.setTO(TO);
+				helper.setSubject();
+				helper.setSubject();
+				helper.setText(body,true)
+			}
+		}
+	    
 	
 		

@@ -2,7 +2,7 @@
 spring:
  datasource:
   username: root
-  password: 8549996008
+  password: root
   url: jdbc:mysql://localhost:3306/mb
   driver-class-name: com.mysql.cj.jdbc.Driver
  

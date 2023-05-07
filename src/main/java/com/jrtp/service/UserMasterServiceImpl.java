@@ -27,15 +27,17 @@ public class UserMasterServiceImpl implements IUserMasterService {
 	
 	@Override
 	public boolean save(User user) {
+		
 		UserMaster userMaster = new UserMaster();
 		BeanUtils.copyProperties(user, userMaster);
 		userMaster.setPassword(generatePass(6));
 		userMaster.setAccStatus("In-Active");
+		System.out.println(userMaster);
 		UserMaster save = userMasterRepo.save(userMaster);
 		
 		if(save.getEmail().equals(user.getEmail())) {
-			
-			//TODO emal sending via mail
+			System.out.println("mail send");
+			//TODO email sending via mail
 			
 			return true;
 		}
@@ -68,7 +70,7 @@ public class UserMasterServiceImpl implements IUserMasterService {
 			 User user = new User();
 			 UserMaster userMaster = option.get();
 			 BeanUtils.copyProperties(userMaster, user);
-			 
+ 
 			 return user;
 		 }
 		 
@@ -80,7 +82,7 @@ public class UserMasterServiceImpl implements IUserMasterService {
 		
 		UserMaster userMaster = new UserMaster();
 		userMaster.setEmail(activateAcc.getEmail());
-		userMaster.setPassword(activateAcc.getOldPass());
+		userMaster.setPassword(activateAcc.getNewPass());
 		
 		Example<UserMaster> of = Example.of(userMaster);	
 		
@@ -118,12 +120,18 @@ public class UserMasterServiceImpl implements IUserMasterService {
 		UserMaster userMaster = findByEmail(logIn.getEmail());
 		
 		if(userMaster == null)
-			return "email not present please register";
-		
-		if(userMaster.getPassword().equals(logIn.getPass())) {
-			return "login sucessfull";
+			return "email not present please register ...!";
+		if(userMaster.getAccStatus().equals("Active")) {
+			if(userMaster.getPassword().equals(logIn.getPass())) {
+				return "login sucessfull";
+			}else
+				return "password incurrect";
+		}else {
+			return "Please Activate the account .. !";
 		}
-		return "password incurrect";
+		
+		
+		
 	}
 
 	@Override
@@ -134,7 +142,6 @@ public class UserMasterServiceImpl implements IUserMasterService {
 		UserMaster userMaster = option.get();
 		userMaster.setAccStatus(status);
 		userMasterRepo.save(userMaster);
-		
 		return true;
 	}
 		return false;
@@ -145,6 +152,7 @@ public class UserMasterServiceImpl implements IUserMasterService {
 		UserMaster userMaster = findByEmail(email);
 		
 		if(userMaster != null) {
+			System.out.println("mail send");
 			// code to send password via email
 		}
 		return "error";
@@ -178,9 +186,9 @@ public class UserMasterServiceImpl implements IUserMasterService {
 	 String pass = "";
 	 
 	 for(int i=1;i<=length;i++) {
-		 pass+=all.valueOf(ran.ints(size));
+		 pass+=all.charAt(ran.nextInt(size));
 	 }
-	 
+	 System.out.println(pass);
 	return pass;
 	 
  }
